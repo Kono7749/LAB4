@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 struct studentNode {
     char name[ 20 ];
@@ -10,26 +11,21 @@ struct studentNode {
 };
 
 void SaveNode( struct studentNode *child, char n[], int a, char s, float g );
-
-void GoNext1( struct studentNode **walk ) {
-
-    if (*walk != NULL && (*walk)->next != NULL) {
-        *walk = (*walk)->next;
-    }
-}
+void GoNext1( struct studentNode **walk );
 
 int main() {
     struct studentNode *start, *now1, **now2;
-    start = new struct studentNode;
+
+    start = (struct studentNode *)malloc(sizeof(struct studentNode));
     SaveNode( start, "one", 6, 'M', 3.11 );
 
-    start->next = new struct studentNode;
+    start->next = (struct studentNode *)malloc(sizeof(struct studentNode));
     SaveNode( start->next, "two", 8, 'F', 3.22 );
 
-    start->next->next = new struct studentNode;
+    start->next->next = (struct studentNode *)malloc(sizeof(struct studentNode));
     SaveNode( start->next->next, "three", 10, 'M', 3.33 );
 
-    start->next->next->next = new struct studentNode;
+    start->next->next->next = (struct studentNode *)malloc(sizeof(struct studentNode));
     SaveNode( start->next->next->next, "four", 12, 'F', 3.44 );
     start->next->next->next->next = NULL;
 
@@ -41,6 +37,12 @@ int main() {
     printf( "%s\n", now1->name );
 
     return 0;
+}
+
+void GoNext1( struct studentNode **walk ) {
+    if (*walk != NULL && (*walk)->next != NULL) {
+        *walk = (*walk)->next;
+    }
 }
 
 void SaveNode( struct studentNode *child, char n[], int a, char s, float g ) {
